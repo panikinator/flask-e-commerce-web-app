@@ -1,0 +1,54 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Suppliers{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <div class="row my-3 justify-content-between">
+        <div class="col">
+            <h1 class="display-4 fw-bold">Suppliers Overview</h1>
+        </div>
+        <div class="col-auto">
+            <a href="/admin/suppliers/add" class="btn btn-lg admin-color">Add Supplier <i class="bi bi-plus-lg"></i></a>
+        </div>
+        <hr>
+    </div>
+
+    <div class="row justify-content-between mb-4">
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Total Suppliers</h5>
+                    <h5 class="card-text">{{ total_suppliers }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row rounded">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Company Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone no.</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for supplier in suppliers.values() %}
+            <tr>
+                <td>{{ supplier.company }} <a href="{{ supplier.website }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ supplier.email }}</td>
+                <td>{{ supplier.phonenumber }}</td>
+                <td><a href="/admin/suppliers/edit/{{ supplier.uuid }}"><i class="bi bi-pencil-square"></i></a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+</div>
+{% endblock %}

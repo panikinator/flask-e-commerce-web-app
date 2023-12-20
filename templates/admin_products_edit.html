@@ -1,0 +1,75 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Edit Product{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <h1 class="display-3 text-center fw-bold"><strong>Edit Product</strong></h1>
+    <h1 class="text-center text-muted">{{ product.name }}</h1>
+
+
+    <div class="border border-dark rounded m-4 p-4 bg-light mx-auto col-10 shadow">
+        <form method="POST" action="/admin/products/edit/{{ product.uuid }}" class="row" enctype="multipart/form-data">
+            <div class="col-6 mb-3">
+                <label for="name" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}" required>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="brand" class="form-label">Brand</label>
+                <input type="brand" class="form-control" id="brand" name="brand" value="{{ product.brand }}" required>
+            </div>
+            <div class="col-4 mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" min="1" placeholder="Product Quantity" value="{{ product.quantity }}" required>
+            </div>
+            <div class="col-4 mb-3">
+                <label for="msrp" class="form-label">MSRP</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="msrp" name="msrp" min="1" placeholder="MSRP" value="{{ product.msrp }}" required>
+                </div>
+            </div>
+            <div class="col-4 mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Price" value="{{ product.price }}" required>
+                </div>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="supplier_uuid" class="form-label">Supplier</label>
+                <select class="form-select" aria-label="Select Product" id="product" name="supplier_uuid">
+                    {% for supplier in suppliers.values() %}
+                    <option value="{{ supplier.uuid }}" {% if supplier.uuid == product.supplier_uuid %} selected {% endif %}>{{ supplier.company }}</option>
+                    {% endfor %}
+                </select>
+            </div> 
+            <div class="col-12 mb-3">
+                <label for="description" class="form-label">Product Description</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Enter Product Description Here" rows="4" required>{{ product.description }}</textarea>
+            </div>
+            
+            <div class="col-6 mb-3 border border-4 p-3">
+                <label for="image-file" class="form-label">Select Product Image (if required to update)</label>
+                <input class="form-control" type="file" id="image-file" name="image-file" accept="image/*" onchange="imagePreview(event)">
+                <div class="text-center">
+                    <img src="{{ product.image_path }}" alt="Product Image Preview" class="img-fluid rounded m-3" id="preview-image" style="max-height: 200px;">
+                </div>
+            </div>
+            
+            <div class="col-md-12 mb-2 mt-2">
+                <button type="submit" class="btn admin-color">Update Product Details</button>
+            </div>
+        </form>
+        <script>
+            function imagePreview (event) {
+                
+            var output = document.getElementById('preview-image');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.classList.remove("d-none");
+        }
+        </script>
+    </div>
+</div>
+{% endblock %}

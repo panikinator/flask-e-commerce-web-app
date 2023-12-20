@@ -1,0 +1,12 @@
+.wrapper {
+  margin: 20px;
+}
+
+.navbar {
+  border-radius: 5px;
+}
+
+.navbar-brand {
+  font-family: "Dancing Script" !important;
+  font-size: 2em;
+}

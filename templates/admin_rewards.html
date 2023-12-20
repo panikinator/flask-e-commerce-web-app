@@ -1,0 +1,87 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Rewards{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <div class="row my-3 justify-content-between">
+        <div class="col">
+            <h1 class="display-4 fw-bold">Rewards Overview</h1>
+        </div>
+        <div class="col-auto">
+            <a href="/admin/rewards/add" class="btn btn-lg admin-color">Add Reward <i class="bi bi-plus-lg"></i></a>
+        </div>
+        <hr>
+    </div>
+
+    <div class="row justify-content-between mb-4">
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Total Rewards</h5>
+                    <h5 class="card-text">{{ total_rewards }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <h1 class="text-success">Valid Rewards</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Reward Name</th>
+                <th scope="col">Cost</th>
+                <th scope="col">% Discount</th>
+                <th scope="col">Max Discount</th>
+                <th scope="col">Reward Status</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for reward in valid_rewards %}
+            <tr>
+                <td>{{ reward.name }}</td>
+                <td>{{ reward.cost }}</td>
+                <td>{{ reward.percent_discount }}</td>
+                <td>${{ reward.max_discount }}</td>
+                <td><div class="badge bg-success">{{ reward.status.value }}</div></td>
+                <td><form action="/admin/rewards/update/{{ reward.uuid }}" method="post"><button class="btn btn-outline-danger" type="submit">Archive<i class="bi bi-archive"></i></button></form></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    <hr>
+    <h1 class="text-danger">Invalid Rewards</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Reward Name</th>
+                <th scope="col">Cost</th>
+                <th scope="col">% Discount</th>
+                <th scope="col">Max Discount</th>
+                <th scope="col">Reward Status</th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for reward in invalid_rewards %}
+            <tr>
+                <td>{{ reward.name }}</td>
+                <td>{{ reward.cost }}</td>
+                <td>{{ reward.percent_discount }}</td>
+                <td>${{ reward.max_discount }}</td>
+                <td><div class="badge bg-danger">{{ reward.status.value }}</div></td>
+                <td><form action="/admin/rewards/update/{{ reward.uuid }}" method="POST"><button class="btn btn-outline-success" type="submit">Validate<i class="bi bi-arrow-bar-up"></i></button></form></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    
+</div>
+{% endblock %}

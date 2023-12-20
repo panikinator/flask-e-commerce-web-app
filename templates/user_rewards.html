@@ -1,0 +1,67 @@
+{% extends "user_layout.html" %}
+
+{% block title %}Rewards{% endblock %}
+
+{% block body %}
+<div class="my-5 mx-4">
+    <div class="row my-3 justify-content-between">
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Your Reward Points</h5>
+                    <h5 class="card-text">{{ customer.reward_points }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="my-4 mx-4">
+    <h3>Available Rewards</h3>
+    <div class="row justify-content-center mt-4">
+        {% for reward in rewards %}
+        <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3">
+            <div class="card bg-secondary border-primary m-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">{{ reward.name }}</h5>
+                    <h6 class="card-title">Cost: {{ reward.cost }} points</h6>
+                    <h6 class="card-subtitle">Discount: {{ reward.percent_discount }}%</h6>
+                    <h6 class="card-subtitle">Max: {{ reward.max_discount }}$</h6>
+                </div>
+                <div class="card-footer">
+                    {% if reward in customer_rewards %}
+                    <a href="/" class="btn btn-success disabled">You already have this <i class="bi bi-cart-check"></i></a>
+                    {% else %}
+                    <form action="/rewards" method="post">
+                        <input type="hidden" name="reward_uuid" value="{{ reward.uuid }}">
+                        <button type="submit" class="btn btn-primary">Buy Reward <i class="bi bi-cart-plus"></i></button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<hr>
+<div class="my-4 mx-4">
+    <h3>Your Rewards</h3>
+    <div class="row justify-content-center mt-4">
+        {% for reward in customer_rewards %}
+        <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3">
+            <div class="card bg-secondary border-primary m-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ reward.name }}</h5>
+                    <h6 class="card-title">Cost: {{ reward.cost }} points</h6>
+                    <h6 class="card-subtitle">Discount: {{ reward.percent_discount }}%</h6>
+                    <h6 class="card-subtitle">Max: {{ reward.max_discount }}$</h6>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

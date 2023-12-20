@@ -1,0 +1,57 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Dashboards{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <div class="row my-3 justify-content-between">
+        <div class="col">
+            <h1 class="display-4 fw-bold">Admin Dashboard</h1>
+        </div>
+        <hr>
+    </div>
+
+    <div class="row justify-content-between mb-4">
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">Total Pending Orders <a href="/admin/orders"><i class="bi bi-box-arrow-up-right"></i></a></h5>
+                    <h5 class="card-text">{{ total_pedning_orders }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Total Orders <a href="/admin/orders"><i class="bi bi-box-arrow-up-right"></i></a></h5>
+                    <h5 class="card-text">{{ total_orders }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Total Customers <a href="/admin/customers"><i class="bi bi-box-arrow-up-right"></i></a></h5>
+                    <h5 class="card-text">{{ total_customers }}</h5>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <hr>
+
+    <h1 class="text-warning">Graphs</h1>
+    <hr>
+    <h3 class="text-info">Website Activity <a href="/graph/activity"><i class="bi bi-box-arrow-up-right"></i></a></h3>
+    <iframe class="embed-responsive" src="/graph/activity" width="100%", height="500"></iframe>
+
+    <h3 class="text-info">Account Creation History <a href="/graph/account_creation_history"><i class="bi bi-box-arrow-up-right"></i></a></h3>
+    <iframe class="embed-responsive" src="/graph/account_creation_history" width="100%", height="500"></iframe>
+
+    <h3 class="text-info">Orders History<a href="/graph/orders_history"><i class="bi bi-box-arrow-up-right"></i></a></h3>
+    <iframe class="embed-responsive" src="/graph/orders_history" width="100%", height="500"></iframe>
+
+</div>
+{% endblock %}

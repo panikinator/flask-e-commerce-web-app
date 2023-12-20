@@ -1,0 +1,52 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Add Reward{% endblock %}
+
+{% block body %}
+<div class="m-2 p-2">
+    <h1 class="display-4 text-center fw-bold">Add Reward</h1>
+    <hr>
+
+    <div class="border border-dark rounded m-4 p-4 bg-light mx-auto col-10 shadow">
+        <form method="POST" action="/admin/rewards/add" class="row">
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Reward Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Reward Name"required>
+            </div>
+            
+            <div class="col-4 mb-3">
+                <label for="cost" class="form-label">Cost</label>
+                <input type="number" class="form-control" id="cost" name="cost" min="1" placeholder="Cost" required>
+            </div>
+            
+            <div class="col-4 mb-3">
+                <label for="max" class="form-label">Max Discount</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="max" name="max" placeholder="Max Discount" required>
+                </div>
+            </div>
+
+            <div class="col-4 mb-3">
+                <label for="percent_discount" class="form-label">Percent Discount</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="percent_discount" name="percent_discount" min="1" placeholder="Percent Discount" required>
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            
+            <div class="col-md-12 mb-2 mt-2">
+                <button type="submit" class="btn admin-color">Add Reward</button>
+            </div>
+        </form>
+        <script>
+            function imagePreview (event) {
+                
+            var output = document.getElementById('preview-image');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.classList.remove("d-none");
+        }
+        </script>
+    </div>
+</div>
+{% endblock %}

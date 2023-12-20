@@ -1,0 +1,35 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Edit Customer Info{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <h1 class="display-4 text-center fw-bold">Edit Customer Info</h1>
+    <hr>
+
+    <div class="border border-dark rounded m-4 p-4 bg-light mx-auto col-10 shadow">
+        <form method="POST" action="/admin/customers/edit/{{ customer.uuid }}" class="row">
+            <div class="col-12 mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" value="{{ customer.name }}" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" value="{{ customer.email }}" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="phonenumber" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="phonenumber" name="phonenumber" placeholder="contact number" value="{{ customer.phonenumber }}" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="address" class="form-label">Full Address</label>
+                <textarea class="form-control" id="address" name="address" placeholder="Enter Full Address Here" rows="4"required>{{ customer.address }}</textarea>
+            </div>
+            <div class="col-12 mb-3">
+                <button type="submit" class="btn btn-primary">Update Info</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

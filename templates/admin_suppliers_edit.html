@@ -1,0 +1,40 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Edit Supplier Info{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <h1 class="display-4 text-center fw-bold">Edit Supplier Info</h1>
+    <hr>
+
+    <div class="border border-dark rounded m-4 p-4 bg-light mx-auto col-10 shadow">
+        <form method="POST" action="/admin/suppliers/edit/{{ supplier.uuid }}" class="row">
+            <div class="col-6 mb-3">
+                <label for="company" class="form-label">Company Name</label>
+                <input type="text" class="form-control" id="company" name="company" placeholder="Company Name" value="{{ supplier.company }}" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input type="url" class="form-control" id="website" name="website" placeholder="Company Website" value="{{ supplier.website }}" required>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="email" class="form-label">Contact Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="example@company.com" value="{{ supplier.email }}" required>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="phonenumber" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="phonenumber" name="phonenumber" placeholder="contact number" value="{{ supplier.phonenumber }}" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="address" class="form-label">Full Address</label>
+                <textarea class="form-control" id="address" name="address" placeholder="Enter Full Address Here" rows="4" required>{{ supplier.address }}</textarea>
+            </div>
+            
+            <div class="col-md-12 mb-2 mt-2">
+                <button type="submit" class="btn admin-color">Update Info</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

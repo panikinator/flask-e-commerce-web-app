@@ -1,0 +1,28 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% set isloginpage = true %}
+{% block body %}
+<div class="m-2 p-2">
+    <h1 class="display-4 text-center"><strong>Admin Login</strong></h1>
+
+    <div class="border border-dark rounded m-4 p-4 bg-light mx-auto col-5 shadow">
+        <form method="POST" action="/admin/login" class="row">
+            <div class="col-12">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com"required>
+            </div>
+            
+            <div class="col-md-12 mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" required>
+            </div>
+            
+            <div class="col-md-12 mb-2 text-center">
+                <button type="submit" class="btn admin-color">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

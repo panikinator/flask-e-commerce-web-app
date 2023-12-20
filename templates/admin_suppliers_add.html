@@ -1,0 +1,57 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Add Supplier{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <h1 class="display-4 text-center fw-bold">Add A Supplier</h1>
+    <hr>
+
+    <div class="border border-dark rounded m-4 p-4 bg-light mx-auto col-10 shadow">
+        <form method="POST" action="/admin/suppliers/add" class="row">
+            <div class="col-6 mb-3">
+                <label for="company" class="form-label">Company Name</label>
+                <input type="text" class="form-control" id="company" name="company" placeholder="Company Name" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input type="url" class="form-control" id="website" name="website" placeholder="Company Website"required>
+            </div>
+            {# 
+                <div class="col-6 mb-3">
+                <label for="product" class="form-label">Product</label>
+                <select class="form-select" aria-label="Select Product" id="product" name="product">
+                    {% for product in products.values() %}
+                    <option value="{{ product.uuid }}" selected>{{ product.name }}</option>
+                    {% endfor %}
+                </select>
+            </div> 
+            #}
+            <!-- <div class="col-6 mb-3">
+                <label for="cost" class="form-label">Cost</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="cost" name="cost" min="1" placeholder="Cost" required>
+                </div>
+            </div> -->
+            <div class="col-6 mb-3">
+                <label for="email" class="form-label">Contact Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="example@company.com" required>
+            </div>
+            <div class="col-6 mb-3">
+                <label for="phonenumber" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="phonenumber" name="phonenumber" placeholder="Contact Number" required>
+            </div>
+            <div class="col-12 mb-3">
+                <label for="address" class="form-label">Full Address</label>
+                <textarea class="form-control" id="address" name="address" placeholder="Enter Full Address Here" rows="4" required></textarea>
+            </div>
+            
+            <div class="col-md-12 mb-2 mt-2">
+                <button type="submit" class="btn admin-color">Add Supplier</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

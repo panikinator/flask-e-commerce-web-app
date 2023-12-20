@@ -1,0 +1,38 @@
+{% extends "user_layout.html" %}
+
+{% block title %}Edit Account Info{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+        <div class="bg-light border border-dark rounded my-5 mx-3 p-4">
+            <div class="row">
+                <h3>Edit Account Info</h3>
+            </div>
+            <hr>
+                
+                <form action="/edit_account_info" method="post" class="row">
+                    <div class="col-12 mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" value="{{ customer.name }}" required>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="example@example.com" value="{{ customer.email }}" required>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="phonenumber" class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" id="phonenumber" name="phonenumber" placeholder="contact number" value="{{ customer.phonenumber }}" required>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="address" class="form-label">Full Address</label>
+                        <textarea class="form-control" id="address" name="address" placeholder="Enter Full Address Here" rows="4"required>{{ customer.address }}</textarea>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <button type="submit" class="btn btn-primary">Update Info</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

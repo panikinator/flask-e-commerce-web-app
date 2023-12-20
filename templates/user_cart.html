@@ -1,0 +1,103 @@
+{% extends "user_layout.html" %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+<div class="my-5 mx-4">
+    <h2>Cart Overview</h2>
+</div>
+
+<hr>
+
+<div class="my-4 mx-2">
+    <div class="table-responsive">
+        <table class="table table-light table-striped caption-top shadow rounded">
+            <caption>List of cart items</caption>
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">MSRP</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for cart_item in customer.cart.values() %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ products[cart_item.product_uuid].name }} <a href="/search?query={{ cart_item.product_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td><del>${{ products[cart_item.product_uuid].msrp }}</del></td>
+                <td>${{ products[cart_item.product_uuid].price }}</td>
+                <td>
+                    <form action="/update_cart_item", method="POST">
+                        <input type="hidden" class="form-control" name="cart_item_uuid" value="{{ cart_item.uuid }}">
+                        <input type="number" class="form-control" onchange="this.form.submit()" style="width: 5em;" name="quantity" value="{{ cart_item.quantity }}">
+                    </form>
+                </td>
+                <td>${{ products[cart_item.product_uuid].price * cart_item.quantity }}</td>
+                <td>
+                    <form action="/delete_cart_item", method="POST">
+                        <input type="hidden" class="form-control" name="cart_item_uuid" value="{{ cart_item.uuid }}">
+                        <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    <!-- <div class="row justify-content-between">
+        <div class="col-sm-10 col-md-5 col-lg-3 col-xl-3 ms-auto">
+            <div class="my-4 mx-2">
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Use Reward?
+                </button>
+                <div class="collapse p-2 m-2" id="collapseExample">
+                    <form action="/cart" method="POST" onsubmit="return confirm('Are you sure you want to procced with ordering?');">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reward" id="none" value checked>
+                        <label class="form-check-label" for="none">none</label>
+                    </div>
+                    {% for reward in customer_rewards %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reward" id="{{ reward.uuid }}" value="{{ reward.uuid }}">
+                        <label class="form-check-label" for="{{ reward.uuid }}">
+                            {{ reward.name }}, {{ reward.percent_discount }}%, Max:{{ reward.max_discount }}$
+                        </label>
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Checkout</button>
+
+                    </form>
+                </div> -->
+
+                
+                <form class="form-inline" action="/cart" method="POST" onsubmit="return confirm('Are you sure you want to procced with ordering?');">
+                    <div class="d-flex justify-content-end">
+                        <div class="col-md-3 mx-1">
+                          <label for="inputReward">Use Reward</label>
+                          <select id="inputReward" name="reward" class="form-control">
+                            <option id="none" selected value="">None</option>
+                            {% for reward in customer_rewards %}
+                            <option id="{{ reward.uuid }}" value="{{ reward.uuid }}">
+                                {{ reward.name }}, {{ reward.percent_discount }}%, Max:{{ reward.max_discount }}$
+                            </option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                        <div style="margin-top: 1.5em;" class="col-auto mx-1">
+                            <button type="submit" class="btn btn-primary">Checkout</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            <!-- </div>
+        </div> -->
+    </div>
+</div>
+
+{% endblock %}

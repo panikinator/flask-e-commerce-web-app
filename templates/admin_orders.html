@@ -1,0 +1,203 @@
+{% extends "admin_layout.html" %}
+
+{% block title %}Admin | Orders{% endblock %}
+
+
+{% block body %}
+<div class="m-2 p-2">
+    <div class="row my-3 justify-content-between">
+        <div class="col">
+            <h1 class="display-4 fw-bold">Orders Overview</h1>
+        </div>
+        <hr>
+    </div>
+
+    <div class="row justify-content-between mb-4">
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Total Pending Orders</h5>
+                    <h5 class="card-text">{{ pending_orders | length }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Total Orders</h5>
+                    <h5 class="card-text">{{ all_orders | length }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h1 class="text-warning">Pending Orders</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Ordered By</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in pending_orders %}
+            <tr>
+                <td>{{ all_customers[order.customer_uuid].name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.product.name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+                <td>
+                    <form action="/admin/orders/update" method="post">
+                        <input type="hidden" name="order_uuid" value="{{ order.uuid }}">
+                        <input type="hidden" name="customer_uuid" value="{{ order.customer_uuid }}">
+
+                        <select class="form-select" name="status" onchange="this.form.submit()">
+                            <option value="Approval Pending" selected>Pending</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <hr>
+
+    <h1 class="text-info">Shipped Orders</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Ordered By</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in shipped_orders %}
+            <tr>
+                <td>{{ all_customers[order.customer_uuid].name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.product.name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+                <td>
+                    <form action="/admin/orders/update" method="post">
+                        <input type="hidden" name="order_uuid" value="{{ order.uuid }}">
+                        <input type="hidden" name="customer_uuid" value="{{ order.customer_uuid }}">
+
+                        <select class="form-select" name="status" onchange="this.form.submit()">
+                            <option value="Approval Pending">Pending</option>
+                            <option value="Shipped" selected>Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+    <hr>
+
+    <h1 class="text-danger">Refunds</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Ordered By</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in refunded_orders %}
+            <tr>
+                <td>{{ all_customers[order.customer_uuid].name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.product.name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+                <td>
+                    <form action="/admin/orders/update" method="post">
+                        <input type="hidden" name="order_uuid" value="{{ order.uuid }}">
+                        <input type="hidden" name="customer_uuid" value="{{ order.customer_uuid }}">
+
+                        <select class="form-select" name="status" onchange="this.form.submit()">
+                            <option value="Approval Pending" selected>Pending</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Refunded" selected>Refunded</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <hr>
+
+    <h1 class="text-success">Delivered Orders</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Ordered By</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+                <th scope="col">Update Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in delivered_orders %}
+            <tr>
+                <td>{{ all_customers[order.customer_uuid].name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.product.name }} <a href="/admin/customers/edit/{{ order.customer_uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+                <td>
+                    <form action="/admin/orders/update" method="post">
+                        <input type="hidden" name="order_uuid" value="{{ order.uuid }}">
+                        <input type="hidden" name="customer_uuid" value="{{ order.customer_uuid }}">
+
+                        <select class="form-select" name="status" onchange="this.form.submit()">
+                            <option value="Approval Pending">Pending</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered" selected>Delivered</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+</div>
+{% endblock %}

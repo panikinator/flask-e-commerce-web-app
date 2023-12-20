@@ -1,0 +1,117 @@
+{% extends "user_layout.html" %}
+
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+<div class="my-5 mx-4">
+    <h2>Orders Overview</h2>
+</div>
+
+<hr>
+
+<div class="my-4 mx-2">
+    <h1 class="text-warning">Pending Orders</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in pending_orders %}
+            <tr>
+                <td>{{ order.product.name }} <a href="/search?query={{ order.product.uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <hr>
+
+    <h1 class="text-info">Shipped Orders</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in shipped_orders %}
+            <tr>
+                <td>{{ order.product.name }} <a href="/search?query={{ order.product.uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+    
+    <hr>
+
+    <h1 class="text-danger">Refunds</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in refunded_orders %}
+            <tr>
+                <td>{{ order.product.name }} <a href="/search?query={{ order.product.uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+    <hr>
+
+    <h1 class="text-success">Delivered Orders</h1>
+    <div class="row">
+        <table class="table table-light table-striped shadow rounded col-12">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Value</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in delivered_orders %}
+            <tr>
+                <td>{{ order.product.name }} <a href="/search?query={{ order.product.uuid }}"><i class="bi bi-box-arrow-up-right"></i></a></td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ order.cost }}</td>
+                <td>{{ order.status.value }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+    </div>
+
+</div>
+
+{% endblock %}
